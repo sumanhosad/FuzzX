@@ -1,4 +1,3 @@
-
 import os
 import requests
 import time
@@ -7,7 +6,11 @@ from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.firefox.options import Options
 from PIL import Image
 import signal
+<<<<<<< HEAD
 #testss
+=======
+
+>>>>>>> origin/sujnans
 # Configure WebDriver options
 options = Options()
 options.add_argument('--headless')
@@ -50,7 +53,11 @@ def fuzz_url(base_url, payloads):
 
     try:
         for payload in payloads:
-            fuzzed_url = base_url.replace("FUZZ", payload)
+            if "FUZZ" in base_url:
+                fuzzed_url = base_url.replace("FUZZ", payload)
+            else:
+                fuzzed_url = base_url.rstrip('/') + '/' + payload
+
             try:
                 response = requests.get(fuzzed_url)
                 print(f"Fuzzing {fuzzed_url} - Status code: {response.status_code}")
@@ -62,7 +69,7 @@ def fuzz_url(base_url, payloads):
         print("\nProcess interrupted by user.")
 
 if __name__ == "__main__":
-    base_url = input("Enter the URL with 'FUZZ' placeholder (e.g., example.com/FUZZ): ")
+    base_url = input("Enter the URL with optional 'FUZZ' placeholder (e.g., example.com/FUZZ or example.com): ")
     wordlist_path = 'wordlist.txt'
     payloads = load_wordlist(wordlist_path)
     fuzz_url(base_url, payloads)
