@@ -7,6 +7,7 @@ from selenium.webdriver.firefox.options import Options
 from PIL import Image
 import signal
 # Configure WebDriver options
+#test
 options = Options()
 options.add_argument('--headless')
 options.add_argument('--disable-gpu')
