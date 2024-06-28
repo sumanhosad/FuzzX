@@ -3,9 +3,9 @@ import itertools
 import string
 import time
 from selenium import webdriver
-from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from PIL import Image
 from io import BytesIO
@@ -53,6 +53,6 @@ def fuzz_url(base_url):
             print(f"Error accessing {fuzzed_url}: {e}")
 
 if __name__ == "__main__":
-    base_url = "http://example.com/FUZZ"
+    base_url = input("Enter the URL with 'FUZZ' placeholder (e.g., http://example.com/FUZZ): ")
     fuzz_url(base_url)
 
