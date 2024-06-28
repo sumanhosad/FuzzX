@@ -1,28 +1,20 @@
+
 import requests
-import itertools
-import string
 import time
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 from PIL import Image
-from io import BytesIO
 
 # Configure WebDriver options
 options = Options()
 options.add_argument('--headless')
 options.add_argument('--disable-gpu')
 
-def generate_fuzz_payloads():
-    """Generates payloads to fuzz the URL."""
-    payloads = []
-    characters = string.ascii_lowercase + string.digits
-    for length in range(1, 4):  # You can adjust the range for more extensive fuzzing
-        for payload in itertools.product(characters, repeat=length):
-            payloads.append(''.join(payload))
-    return payloads
+def load_wordlist(file_path):
+    """Loads fuzz payloads from a wordlist file."""
+    with open(file_path, 'r') as file:
+        return [line.strip() for line in file]
 
 def take_screenshot(url, response):
     """Takes a screenshot of the URL using Selenium and saves it."""
@@ -39,10 +31,9 @@ def take_screenshot(url, response):
     with open(filename, 'wb') as file:
         file.write(screenshot)
 
-def fuzz_url(base_url):
+def fuzz_url(base_url, payloads):
     """Fuzzes the given URL and takes screenshots of appropriate responses."""
-    fuzz_payloads = generate_fuzz_payloads()
-    for payload in fuzz_payloads:
+    for payload in payloads:
         fuzzed_url = base_url.replace("FUZZ", payload)
         try:
             response = requests.get(fuzzed_url)
@@ -54,5 +45,7 @@ def fuzz_url(base_url):
 
 if __name__ == "__main__":
     base_url = input("Enter the URL with 'FUZZ' placeholder (e.g., http://example.com/FUZZ): ")
-    fuzz_url(base_url)
+    wordlist_path = 'wordlist.txt'
+    payloads = load_wordlist(wordlist_path)
+    fuzz_url(base_url, payloads)
 
