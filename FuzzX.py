@@ -7,7 +7,7 @@ from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.firefox.options import Options
 from PIL import Image
 import signal
-#tests
+#testss
 # Configure WebDriver options
 options = Options()
 options.add_argument('--headless')
