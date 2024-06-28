@@ -7,10 +7,17 @@ from selenium.webdriver.firefox.options import Options
 from PIL import Image
 import signal
 <<<<<<< HEAD
+<<<<<<< HEAD
 #testss
 =======
 
 >>>>>>> origin/sujnans
+=======
+
+=======
+#testss
+>>>>>>> origin
+>>>>>>> sujnans
 # Configure WebDriver options
 options = Options()
 options.add_argument('--headless')
